@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { Upload, X, Image as ImageIcon } from 'lucide-react'
+import { Image as ImageIcon } from 'lucide-react'
 
 interface ImageUploadProps {
   onUpload: (url: string) => void

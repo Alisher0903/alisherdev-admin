@@ -127,7 +127,7 @@ const Skills = () => {
                           className="w-6 h-6"
                           onError={(e) => {
                             e.currentTarget.style.display = 'none'
-                            e.currentTarget.nextElementSibling!.style.display = 'block'
+                            // e.currentTarget.nextElementSibling!.style.display = 'block'
                           }}
                         />
                         <Code className="w-6 h-6 text-gray-400 hidden" />

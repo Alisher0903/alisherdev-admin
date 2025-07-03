@@ -3,7 +3,7 @@ import { Dialog } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { X, Plus, Trash2 } from 'lucide-react'
+import { X, Trash2 } from 'lucide-react'
 import ImageUpload from './ImageUpload'
 
 interface Project {
