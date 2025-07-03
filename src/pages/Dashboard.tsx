@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { FolderOpen, Code, TrendingUp, Users } from 'lucide-react'
+import { axiosBase } from '@/api/api'
 
 interface Stats {
   totalProjects: number
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('/api/dashboard/stats')
+      const response = await axiosBase.get('/api/dashboard/stats')
       setStats(response.data)
     } catch (error) {
       console.error('Error fetching stats:', error)

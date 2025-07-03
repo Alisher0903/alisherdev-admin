@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Plus, Edit, Trash2, Tag } from 'lucide-react'
 import CategoryModal from '../components/CategoryModal'
+import { axiosBase } from '@/api/api'
 
 interface Category {
   _id: string
@@ -25,7 +25,7 @@ const Categories = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('/api/categories')
+      const response = await axiosBase.get('/api/categories')
       setCategories(response.data)
     } catch (error) {
       toast.error('Failed to fetch categories')
@@ -38,7 +38,7 @@ const Categories = () => {
     if (!confirm('Are you sure you want to delete this category?')) return
 
     try {
-      await axios.delete(`/api/categories/${id}`)
+      await axiosBase.delete(`/api/categories/${id}`)
       setCategories(categories.filter(c => c._id !== id))
       toast.success('Category deleted successfully')
     } catch (error) {

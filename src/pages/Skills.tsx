@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Plus, Edit, Trash2, Code } from 'lucide-react'
 import SkillModal from '../components/SkillModal'
+import { axiosBase } from '@/api/api'
 
 interface Skill {
   _id: string
@@ -31,7 +31,7 @@ const Skills = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await axios.get('/api/skills')
+      const response = await axiosBase.get('/api/skills')
       setSkillCategories(response.data)
     } catch (error) {
       toast.error('Failed to fetch skills')
@@ -44,7 +44,7 @@ const Skills = () => {
     if (!confirm('Are you sure you want to delete this skill?')) return
 
     try {
-      await axios.delete(`/api/skills/${id}`)
+      await axiosBase.delete(`/api/skills/${id}`)
       fetchSkills()
       toast.success('Skill deleted successfully')
     } catch (error) {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Mail, Trash2, Eye, Clock, CheckCircle } from 'lucide-react'
 import ContactModal from '../components/ContactModal'
+import { axiosBase } from '@/api/api'
 
 interface Contact {
   _id: string
@@ -39,7 +39,7 @@ const Contacts = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get(`/api/contact?page=${currentPage}&limit=10`)
+      const response = await axiosBase.get(`/api/contact?page=${currentPage}&limit=10`)
       setContactsData(response.data)
     } catch (error) {
       toast.error('Failed to fetch contacts')
@@ -52,7 +52,7 @@ const Contacts = () => {
     if (!confirm('Are you sure you want to delete this contact?')) return
 
     try {
-      await axios.delete(`/api/contact/${id}`)
+      await axiosBase.delete(`/api/contact/${id}`)
       fetchContacts()
       toast.success('Contact deleted successfully')
     } catch (error) {
@@ -67,7 +67,7 @@ const Contacts = () => {
     // Mark as read if not already read
     if (!contact.isRead) {
       try {
-        await axios.patch(`/api/contact/${contact._id}/read`)
+        await axiosBase.patch(`/api/contact/${contact._id}/read`)
         fetchContacts()
       } catch (error) {
         console.error('Failed to mark as read:', error)

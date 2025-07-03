@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { User, Lock, Save } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
+import { axiosBase } from '@/api/api'
 
 interface ProfileData {
   username: string
@@ -49,7 +49,7 @@ const Profile = () => {
         updateData.newPassword = data.newPassword
       }
 
-      await axios.put('/api/profile', updateData)
+      await axiosBase.put('/api/profile', updateData)
       toast.success('Profile updated successfully')
       
       if (showPasswordFields) {

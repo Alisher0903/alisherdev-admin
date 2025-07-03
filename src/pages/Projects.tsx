@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Plus, Edit, Trash2, ExternalLink, FolderOpen } from 'lucide-react'
 import ProjectModal from '../components/ProjectModal'
+import { axiosBase } from '@/api/api'
 
 interface Project {
   _id: string
@@ -30,7 +30,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('/api/projects')
+      const response = await axiosBase.get('/api/projects')
       setProjects(response.data)
     } catch (error) {
       toast.error('Failed to fetch projects')
@@ -43,7 +43,7 @@ const Projects = () => {
     if (!confirm('Are you sure you want to delete this project?')) return
 
     try {
-      await axios.delete(`/api/projects/${id}`)
+      await axiosBase.delete(`/api/projects/${id}`)
       setProjects(projects.filter(p => p._id !== id))
       toast.success('Project deleted successfully')
     } catch (error) {

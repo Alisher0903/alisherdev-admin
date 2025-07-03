@@ -1,5 +1,5 @@
+import { axiosBase } from '@/api/api'
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
 
 interface User {
   id: string
@@ -31,15 +31,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`
       // Verify token
-      axios.get('/api/auth/verify')
+      axiosBase.get('/api/auth/verify')
         .then(response => {
           setUser(response.data.user)
         })
         .catch(() => {
           localStorage.removeItem('token')
-          delete axios.defaults.headers.common['Authorization']
+          delete axiosBase.defaults.headers.common['Authorization']
         })
         .finally(() => {
           setIsLoading(false)
@@ -51,11 +51,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      const response = await axios.post('/api/auth/login', { username, password })
+      const response = await axiosBase.post('/api/auth/login', { username, password })
       const { token, user } = response.data
       
       localStorage.setItem('token', token)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser(user)
       
       return true
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     localStorage.removeItem('token')
-    delete axios.defaults.headers.common['Authorization']
+    delete axiosBase.defaults.headers.common['Authorization']
     setUser(null)
   }
 
