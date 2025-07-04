@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { X, Trash2 } from 'lucide-react'
 import ImageUpload from './ImageUpload'
+import { axiosBase } from '@/api/api'
 
 interface Skill {
   _id?: string
@@ -50,7 +50,7 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, skill }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('/api/categories')
+      const response = await axiosBase.get('/api/categories')
       setCategories(response.data.map((cat: any) => cat.name))
     } catch (error) {
       console.error('Error fetching categories:', error)
@@ -67,10 +67,10 @@ const SkillModal: React.FC<SkillModalProps> = ({ isOpen, onClose, skill }) => {
       }
 
       if (skill?._id) {
-        await axios.put(`/api/skills/${skill._id}`, skillData)
+        await axiosBase.put(`/api/skills/${skill._id}`, skillData)
         toast.success('Skill updated successfully')
       } else {
-        await axios.post('/api/skills', skillData)
+        await axiosBase.post('/api/skills', skillData)
         toast.success('Skill created successfully')
       }
       

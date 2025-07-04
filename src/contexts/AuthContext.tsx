@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const response = await axiosBase.post('/api/auth/login', { username, password })
       const { token, user } = response.data
-      
+
       localStorage.setItem('token', token)
       axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`
       setUser(user)

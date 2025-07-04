@@ -40,7 +40,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         })
         
         const response = await axios.post('/api/upload/multiple', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         
         response.data.files.forEach((file: any) => {
@@ -58,7 +58,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         formData.append('file', file)
         
         const response = await axios.post('/api/upload/single', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+          headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
         
         onUpload(response.data.url)

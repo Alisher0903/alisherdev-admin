@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export const axiosBase = axios.create({
-  baseURL: "https://alisherdev.up.railway.app",
+  baseURL: "",
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}}`
+  }
 });

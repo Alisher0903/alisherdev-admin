@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { X, Trash2 } from 'lucide-react'
 import ImageUpload from './ImageUpload'
+import { axiosBase } from '@/api/api'
 
 interface Project {
   _id?: string
@@ -67,10 +67,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       }
 
       if (project?._id) {
-        await axios.put(`/api/projects/${project._id}`, projectData)
+        await axiosBase.put(`/api/projects/${project._id}`, projectData)
         toast.success('Project updated successfully')
       } else {
-        await axios.post('/api/projects', projectData)
+        await axiosBase.post('/api/projects', projectData)
         toast.success('Project created successfully')
       }
       

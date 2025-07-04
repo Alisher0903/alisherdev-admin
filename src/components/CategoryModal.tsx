@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import toast from 'react-hot-toast'
 import { X } from 'lucide-react'
+import { axiosBase } from '@/api/api'
 
 interface Category {
   _id?: string
@@ -40,10 +40,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ isOpen, onClose, category
     
     try {
       if (category?._id) {
-        await axios.put(`/api/categories/${category._id}`, data)
+        await axiosBase.put(`/api/categories/${category._id}`, data)
         toast.success('Category updated successfully')
       } else {
-        await axios.post('/api/categories', data)
+        await axiosBase.post('/api/categories', data)
         toast.success('Category created successfully')
       }
       
